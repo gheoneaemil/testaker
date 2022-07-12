@@ -23,18 +23,6 @@ interface Props {
   contract: Staking | null;
 } 
 
-function createData(
-  address: string,
-  amount: number
-) {
-  return { address, amount };
-}
-
-interface Investor {
-  address: string;
-  amount: number | string;
-}
-
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
