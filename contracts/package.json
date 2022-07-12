@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": "https://github.com/0xPolygon/staking-contracts.git",
   "scripts": {
-    "build": "npm run clean && npm run compile && cp -r types ../client",
+    "build": "npm run clean && npm run compile && cp -r types ../client && cp -r types ../server",
     "deploy": "hardhat run scripts/deploy.ts --network ethereumRinkeby",
     "stake": "hardhat run scripts/stake.ts",
     "transfer": "hardhat run scripts/transfer.ts",

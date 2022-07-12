@@ -1,8 +1,8 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "/home/diimiim/chance-predictor/contracts/contracts/MockStaker.sol": {
-      "lastModificationDate": 1657540529561,
+    "/home/diimiim/testaker/contracts/contracts/MockStaker.sol": {
+      "lastModificationDate": 1657607726496,
       "contentHash": "973926105706942e4e494fc7649c385a",
       "sourceName": "contracts/MockStaker.sol",
       "solcConfig": {
@@ -38,8 +38,8 @@
         "MockStaker"
       ]
     },
-    "/home/diimiim/chance-predictor/contracts/contracts/Staking.sol": {
-      "lastModificationDate": 1657540524889,
+    "/home/diimiim/testaker/contracts/contracts/Staking.sol": {
+      "lastModificationDate": 1657607726496,
       "contentHash": "5cdce3b4a767e8c9a6742ac1fed0e4e7",
       "sourceName": "contracts/Staking.sol",
       "solcConfig": {
@@ -75,8 +75,8 @@
         "Staking"
       ]
     },
-    "/home/diimiim/chance-predictor/contracts/node_modules/@openzeppelin/contracts/utils/Address.sol": {
-      "lastModificationDate": 1657540340206,
+    "/home/diimiim/testaker/contracts/node_modules/@openzeppelin/contracts/utils/Address.sol": {
+      "lastModificationDate": 1657607727972,
       "contentHash": "4cff8b2ea0d958750786b4e3ca308445",
       "sourceName": "@openzeppelin/contracts/utils/Address.sol",
       "solcConfig": {
