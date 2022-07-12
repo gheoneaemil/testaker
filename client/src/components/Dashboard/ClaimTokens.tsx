@@ -6,6 +6,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { params, WalletContext } from '../../common/Params/Index';
+import { ethers } from 'ethers';
 
 interface Props {
   contract: Staking | null;
@@ -32,13 +33,13 @@ export default function ClaimTokens({ contract, wallet }: Props) {
   }, [wallet,contract]);
 
   return (
-    <Card sx={{ maxWidth: 450 , margin: '3rem' , padding: '3rem' }}>
+    <Card sx={{ margin: '3rem' , padding: '3rem' , backgroundColor: '#282c34' }} elevation={0}>
       <CardContent>
         <Typography gutterBottom variant="h4" component="div">
-          You have {amount} tokens
+          You have {String(ethers.utils.formatEther(amount)).substring(0,8)} ETH
         </Typography>
         <Typography gutterBottom variant="h6" component="div">
-          Want to claim them?
+          Want to claim it?
         </Typography>
       </CardContent>
       <CardActions sx={{ justifyContent: 'center' , textAlign: 'center' }}>

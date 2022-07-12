@@ -1,36 +1,23 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-//import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { WalletContext } from '../Params/Index';
-//import { defaultWalletContext, WalletContext } from '../Params/Index';
-//import { BehaviorSubject } from 'rxjs';
-//import AccountCircle from '@mui/icons-material/AccountCircle';
 import Blockies from 'react-blockies';
 import LoginIcon from '@mui/icons-material/Login';
 
 
-const pages = ['Stake', 'Claim', 'Investors'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 interface Props {
     wallet: WalletContext
-  }
+}
 
 export default function Navigation({wallet}: Props) {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-    //const wallet$ = new BehaviorSubject<WalletContext>(wallet);
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
@@ -51,150 +38,80 @@ export default function Navigation({wallet}: Props) {
         <>
             <AppBar position="static">
                 <Container maxWidth="xl">
-                    <Toolbar disableGutters>
-                    <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="a"
-                        href="/"
-                        sx={{
-                        mr: 2,
-                        display: { xs: 'none', md: 'flex' },
-                        fontFamily: 'monospace',
-                        fontWeight: 700,
-                        letterSpacing: '.3rem',
-                        color: 'inherit',
-                        textDecoration: 'none',
-                        }}
-                    >
-                        TESTAKER
-                    </Typography>
+                    <Toolbar sx={{ justifyContent: "space-between" }}>
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component="a"
+                            href="/"
+                            sx={{
+                            mr: 2,
+                            display: { xs: 'none', md: 'flex' },
+                            fontFamily: 'monospace',
+                            fontWeight: 700,
+                            letterSpacing: '.3rem',
+                            color: 'inherit',
+                            textDecoration: 'none',
+                            }}
+                        >
+                            TESTAKER
+                        </Typography>
 
-                    <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-                        <IconButton
-                        size="large"
-                        aria-label="account of current user"
-                        aria-controls="menu-appbar"
-                        aria-haspopup="true"
-                        onClick={handleOpenNavMenu}
-                        color="inherit"
+                        <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+                        <Typography
+                            variant="h5"
+                            noWrap
+                            component="a"
+                            href=""
+                            sx={{
+                            mr: 2,
+                            display: { xs: 'flex', md: 'none' },
+                            flexGrow: 1,
+                            fontFamily: 'monospace',
+                            fontWeight: 700,
+                            letterSpacing: '.3rem',
+                            color: 'inherit',
+                            textDecoration: 'none',
+                            }}
                         >
-                        <MenuIcon />
-                        </IconButton>
-                        <Menu
-                        id="menu-appbar"
-                        anchorEl={anchorElNav}
-                        anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'left',
-                        }}
-                        keepMounted
-                        transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'left',
-                        }}
-                        open={Boolean(anchorElNav)}
-                        onClose={handleCloseNavMenu}
-                        sx={{
-                            display: { xs: 'block', md: 'none' },
-                        }}
-                        >
-                        {pages.map((page) => (
-                            <MenuItem key={page} onClick={handleCloseNavMenu}>
-                            <Typography textAlign="center">{page}</Typography>
-                            </MenuItem>
-                        ))}
-                        </Menu>
-                    </Box>
-                    <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-                    <Typography
-                        variant="h5"
-                        noWrap
-                        component="a"
-                        href=""
-                        sx={{
-                        mr: 2,
-                        display: { xs: 'flex', md: 'none' },
-                        flexGrow: 1,
-                        fontFamily: 'monospace',
-                        fontWeight: 700,
-                        letterSpacing: '.3rem',
-                        color: 'inherit',
-                        textDecoration: 'none',
-                        }}
-                    >
-                        LOGO
-                    </Typography>
-                    <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {pages.map((page) => (
-                        <Button
-                            key={page}
-                            onClick={handleCloseNavMenu}
-                            sx={{ my: 2, color: 'white', display: 'block' }}
-                        >
-                            {page}
-                        </Button>
-                        ))}
-                    </Box>
+                            LOGO
+                        </Typography>
 
-                    <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title={wallet.account}>
-                        <>
-                            {
-                                wallet.account ? (
-                                    <>
-                                        <Grid container direction="row" alignItems="center">
-                                            <Grid item>
-                                            <Blockies
-                                                seed={wallet.account}
-                                                size={13}
-                                                scale={3}
-                                                color='#dfe'
-                                                spotColor='#abc'
-                                                className='MetamaskIcon'
-                                            />
+                        <Toolbar >
+                            <Tooltip title={wallet.account}>
+                            <>
+                                {
+                                    wallet.account ? (
+                                        <>
+                                            <Grid container direction="row" alignItems="center">
+                                                <Grid item sx={{ display: 'contents' }}>
+                                                <Blockies
+                                                    seed={wallet.account}
+                                                    size={13}
+                                                    scale={3}
+                                                    color='#dfe'
+                                                    spotColor='#abc'
+                                                    className='MetamaskIcon'
+                                                />
+                                                </Grid>
+                                                <Grid item style={{ "marginLeft": "0.7rem" }}>
+                                                    {wallet.account.substring(0,4) + ".." + wallet.account.substring(wallet.account.length-3,wallet.account.length)}
+                                                </Grid>
                                             </Grid>
-                                            <Grid item style={{ "marginLeft": "0.7rem" }}>
-                                                {wallet.account.substring(0,4) + ".." + wallet.account.substring(wallet.account.length-3,wallet.account.length)}
-                                            </Grid>
-                                        </Grid>
-                                    </>
-                                ) : (
-                                    <>
-                                        <LoginIcon/>
-                                    </>
-                                )
-                            }
-                        </>
-                        </Tooltip>
-                        <Menu
-                        sx={{ mt: '45px' }}
-                        id="menu-appbar"
-                        anchorEl={anchorElUser}
-                        anchorOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
-                        }}
-                        keepMounted
-                        transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
-                        }}
-                        open={Boolean(anchorElUser)}
-                        onClose={handleCloseUserMenu}
-                        >
-                        {settings.map((setting) => (
-                            <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                            <Typography textAlign="center">{setting}</Typography>
-                            </MenuItem>
-                        ))}
-                        </Menu>
-                    </Box>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <LoginIcon/>
+                                        </>
+                                    )
+                                }
+                            </>
+                            </Tooltip>
+                        </Toolbar>
+
                     </Toolbar>
                 </Container>
             </AppBar>
-            {/*<>{JSON.stringify(wallet$)}</>*/}
         </>
     );
 };

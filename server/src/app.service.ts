@@ -14,7 +14,7 @@ export class AppService {
   wallet: ethers.Wallet;
   connectionCloseTimestamp: number = 0;
   connectionOpenTimestamp: number = 0;
-  contractAddress: string = '0x3b4B48d72872142ce2442d01D8f4D930dA9C3452';
+  contractAddress: string = '0x59388cCbb83A06683186257Fe215Ea5cDc50cC14';
   stakeContract: Staking;
 
   connect() {

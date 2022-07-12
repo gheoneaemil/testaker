@@ -21,9 +21,6 @@ const config: HardhatUserConfig = {
       accounts: [String(process.env.PRIVATE_KEY)],
     },
   },
-  etherscan: {
-    apiKey: '',
-  },
   gasReporter: {
     currency: "EUR",
     gasPrice: 21

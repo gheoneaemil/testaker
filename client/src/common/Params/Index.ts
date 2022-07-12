@@ -1,6 +1,7 @@
 export const params = {
-    contract: '0x3b4B48d72872142ce2442d01D8f4D930dA9C3452',
-    emptyAddress: '0x0000000000000000000000000000000000000000'
+    contract: '0x59388cCbb83A06683186257Fe215Ea5cDc50cC14',
+    emptyAddress: '0x0000000000000000000000000000000000000000',
+    apiUrl: 'http://localhost:3001'
 };
 
 export interface Params {
