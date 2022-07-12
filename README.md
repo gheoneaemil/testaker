@@ -6,12 +6,12 @@
 
 #### 2) Start the server using:
 ```
-npm run build && npm run start
+npm install && npm run build && npm run start
 ```
 
 #### 3) Start the client using:
 ```
-npm run build && npm run start
+npm install && npm run build && npm run start
 ```
 
 ##### If there's no types in ./client and ./server run this:
