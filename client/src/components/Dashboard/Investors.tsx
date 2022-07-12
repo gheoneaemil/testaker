@@ -80,28 +80,24 @@ export default function Investors({ contract }: Props) {
 
   const observable = new Observable<Investor>(subscriber => {
     contract?.validators().then((validators: Array<string>) => {
-
+      console.log("Received validators");
+      //let formattedInvestors = investors;
       for ( let i = 0 , l = validators.length ; i < l ; ++i ) {
         contract?.accountStake(validators[i]).then((amountStaked: BigNumber) => {
+          console.log("Pushing for next");
           subscriber.next({
             address: validators[i],
             amount: Number(amountStaked)
           });
+          setInvestors([...investors, {
+            address: validators[i],
+            amount: Number(amountStaked)
+          }]);
         })
       }
-
       subscriber.complete();
+      //setInvestors(formattedInvestors);
     })
-  });
-
-  observable.subscribe({
-    next(investor: Investor) {
-      console.log(investor);
-      setInvestors([... investors, investor]);
-    },
-    error(err) {
-      console.error(err);
-    }
   });
 
   React.useEffect(() => {
@@ -113,30 +109,25 @@ export default function Investors({ contract }: Props) {
 
     try {
 
+      observable.subscribe({
+        next(investor: Investor) {
+          console.log("Received something here");
+          console.log(investor);
+        },
+        error(err) {
+          console.error(err);
+        }
+      });
+
       httpGet(params.apiUrl + "/events")
       .then(response => {
-        console.log(response);
         setEvents(response[0]);
       })
       .catch(err => {
         console.error(err)
       });
-
-      /*
-      let investorsToStore: Array<Investor> = [];
-        observable.subscribe({
-          next(observedInvestors: Array<Investor>) {
-            investorsToStore = observedInvestors;
-          },
-          error(err) {
-            console.error(err);
-          },
-          complete() {
-            console.log(investorsToStore);
-            setInvestors(investorsToStore);
-          }
-        });
   
+        /*
         const fetch = () => {
           contract?.validators().then((validators: Array<string>) => {
             let formattedValidators: Array<Investor> = [];
@@ -169,10 +160,11 @@ export default function Investors({ contract }: Props) {
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
               <Tab label="Investors" {...a11yProps(0)} />
-              <Tab label="Events" {...a11yProps(1)} />
+              <Tab label={"Events (" + events.length + ")"} {...a11yProps(1)} />
             </Tabs>
           </Box>
           <TabPanel value={value} index={0}>
+            <p>{JSON.stringify(investors)}</p>
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
