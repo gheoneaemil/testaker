@@ -2,7 +2,7 @@
 
 ### Getting Started
 
-#### 1) Load the .env.development files for server, and contracts ( if necessary )
+#### 1) Load the .env.development file for server, and contracts ( if necessary )
 
 #### 2) Start the server using:
 ```
