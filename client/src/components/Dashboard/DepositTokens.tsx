@@ -30,7 +30,7 @@ export default function DepositTokens({ contract }: Props) {
   }
 
   return (
-    <Card sx={{ margin: '3rem' , padding: '3rem', backgroundColor: '#282c34' }} elevation={0}>
+    <Card elevation={0}>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div" sx={{ marginBottom: '1rem' }}>
             Deposit ETH
