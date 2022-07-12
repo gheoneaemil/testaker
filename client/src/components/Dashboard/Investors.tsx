@@ -11,12 +11,12 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { BigNumber } from 'ethers';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import httpGet from '../../common/Http/Request';
 import { params } from '../../common/Params/Index';
+import Blockies from 'react-blockies';
 
 
 interface Props {
@@ -100,6 +100,9 @@ export default function Investors({ contract }: Props) {
     },
     error(err) {
       console.error(err);
+    },
+    complete() {
+      
     }
   });
 
@@ -124,13 +127,12 @@ export default function Investors({ contract }: Props) {
             </Tabs>
           </Box>
           <TabPanel value={value} index={0}>
-            <p>{JSON.stringify(investors)}</p>
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                   <TableRow>
+                    <TableCell align="center">Profile</TableCell>
                     <TableCell align="center">Address</TableCell>
-                    <TableCell align="center">Amount</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -139,7 +141,16 @@ export default function Investors({ contract }: Props) {
                       key={id}
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
-                      <TableCell align="center">{investor}</TableCell>
+                      <TableCell align="center">
+                        <Blockies
+                            seed={investor}
+                            size={13}
+                            scale={3}
+                            color='#dfe'
+                            spotColor='#abc'
+                            className='MetamaskIcon'
+                        />
+                      </TableCell>
                       <TableCell align="center">{investor}</TableCell>
                     </TableRow>
                   ))}
