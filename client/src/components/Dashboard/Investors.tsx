@@ -72,6 +72,7 @@ export default function Investors({ contract }: Props) {
 
   const [investors, setInvestors] = React.useState<Array<Investor>>([]);
   const [value, setValue] = React.useState(0);
+  const [events, setEvents] = React.useState<Array<any>>([]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -115,6 +116,7 @@ export default function Investors({ contract }: Props) {
       httpGet(params.apiUrl + "/events")
       .then(response => {
         console.log(response);
+        setEvents(response[0]);
       })
       .catch(err => {
         console.error(err)
@@ -168,7 +170,6 @@ export default function Investors({ contract }: Props) {
             <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
               <Tab label="Investors" {...a11yProps(0)} />
               <Tab label="Events" {...a11yProps(1)} />
-              <Tab label="Item Three" {...a11yProps(2)} />
             </Tabs>
           </Box>
           <TabPanel value={value} index={0}>
@@ -195,10 +196,51 @@ export default function Investors({ contract }: Props) {
             </TableContainer>
           </TabPanel>
           <TabPanel value={value} index={1}>
-            Item Two
-          </TabPanel>
-          <TabPanel value={value} index={2}>
-            Item Three
+            <TableContainer component={Paper}>
+              <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell align="center">ID</TableCell>
+                    <TableCell align="center">Block No.</TableCell>
+                    <TableCell align="center">Block Hash</TableCell>
+                    <TableCell align="center">Tx Index</TableCell>
+                    <TableCell align="center">Removed</TableCell>
+                    <TableCell align="center">Address</TableCell>
+                    <TableCell align="center">Data</TableCell>
+                    <TableCell align="center">Tx. Hash</TableCell>
+                    <TableCell align="center">Log Index</TableCell>
+                    <TableCell align="center">Event</TableCell>
+                    <TableCell align="center">Event Signature</TableCell>
+                    <TableCell align="center">Account</TableCell>
+                    <TableCell align="center">Amount</TableCell>
+                    <TableCell align="center">Event Args (Encoded)</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {events.map((event, id) => (
+                    <TableRow
+                      key={id}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                      <TableCell align="center">{event.id}</TableCell>
+                      <TableCell align="center">{event.blockNumber}</TableCell>
+                      <TableCell align="center">{event.blockHash}</TableCell>
+                      <TableCell align="center">{event.transactionIndex}</TableCell>
+                      <TableCell align="center">{event.removed}</TableCell>
+                      <TableCell align="center">{event.address}</TableCell>
+                      <TableCell align="center">{event.data}</TableCell>
+                      <TableCell align="center">{event.transactionHash}</TableCell>
+                      <TableCell align="center">{event.logIndex}</TableCell>
+                      <TableCell align="center">{event.event}</TableCell>
+                      <TableCell align="center">{event.eventSignature}</TableCell>
+                      <TableCell align="center">{event.account}</TableCell>
+                      <TableCell align="center">{event.amount}</TableCell>
+                      <TableCell align="center">{event.eventArgumentsEncoded}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
           </TabPanel>
         </Box>
       </CardContent>
