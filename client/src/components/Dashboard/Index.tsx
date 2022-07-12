@@ -5,6 +5,8 @@ import ClaimTokens from './ClaimTokens';
 import DepositTokens from './DepositTokens';
 import { Staking } from '../../types/Staking';
 import { ethers } from 'ethers';
+import { WalletContext } from '../../common/Params/Index';
+import Investors from './Investors';
 
 const Grid = styled(MuiGrid)(({ theme }) => ({
   width: '100%',
@@ -15,22 +17,23 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
 }));
 
 interface Props {
-  connection: ethers.providers.Web3Provider | null;
   contract: Staking | null;
+  wallet: WalletContext | null;
 } 
 
-export default function Dashboard({ connection, contract }: Props) {
+export default function Dashboard({ contract, wallet }: Props) {
   return (
-    <div className="App">
-      <Grid container>
-        <Grid item xs>
-          <DepositTokens connection={connection} contract={contract} />
-        </Grid>
-        <Divider orientation="vertical" flexItem />
-        <Grid item xs>
-          <ClaimTokens connection={connection} contract={contract} />
-        </Grid>
+    <>
+    <Grid container style={{ display: 'block ruby' }}>
+      <Grid item xs={4} style={{textAlign: "center"}}>
+        <DepositTokens contract={contract} />
       </Grid>
-    </div>
+      <Divider orientation="vertical" flexItem />
+      <Grid item xs={4} style={{textAlign: "center"}}>
+        <ClaimTokens contract={contract} wallet={wallet} />
+      </Grid>
+    </Grid>
+      <Investors contract={contract} />
+    </>
   );
 }

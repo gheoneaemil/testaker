@@ -2,11 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { ethers } from 'ethers';
 import { Staking } from '../types/Staking';
 import { Staking__factory } from '../types/factories/Staking__factory';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Event } from './entities/event.entity';
+import { Repository } from 'typeorm';
 
-/*
-const EXPECTED_PONG_BACK = 15000;
-const KEEP_ALIVE_CHECK_INTERVAL = 7500;
-*/
 
 @Injectable()
 export class AppService {
@@ -18,45 +17,6 @@ export class AppService {
   contractAddress: string = '0x3b4B48d72872142ce2442d01D8f4D930dA9C3452';
   stakeContract: Staking;
 
-  /*
-  sturdyWebsocketLogic() {
-    let pingTimeout = null;
-    let keepAliveInterval = null;
-
-    this.connection._websocket.on('open', () => {
-      console.log('WS opened');
-      this.connectionOpenTimestamp = Math.ceil(Date.now() / 1000);
-
-      keepAliveInterval = setInterval(() => {
-        this.connection._websocket.ping();
-
-        pingTimeout = setTimeout(() => {
-          try {
-            this.connection._websocket.terminate();
-          } catch(err) {
-            console.error(err);
-          }
-        }, EXPECTED_PONG_BACK);
-      }, KEEP_ALIVE_CHECK_INTERVAL);
-    });
-
-    this.connection._websocket.on('close', () => {
-      this.connectionCloseTimestamp = Math.floor(Date.now() / 1000);
-
-      console.warn('WS has closed');
-      clearInterval(keepAliveInterval);
-      clearTimeout(pingTimeout);
-      
-      this.connect();
-    })
-  
-    this.connection._websocket.on('pong', () => {
-      console.log('Received pong, so connection is alive');
-      clearInterval(pingTimeout);
-    })
-  }
-  */
-
   connect() {
     this.connection = new ethers.providers.WebSocketProvider(String(process.env.ETHEREUM_RINKEBY_INFURA));
     this.wallet = new ethers.Wallet(String(process.env.PRIVATE_KEY), this.connection);
@@ -66,24 +26,34 @@ export class AppService {
 
   initializeWathcer() {
     console.log("Watcher listening on contract [", this.stakeContract.address, "]");
-    this.stakeContract.on("*", async (event) => {
-      const args = event.args;
-      console.log(event.event + ": " + JSON.stringify(args));
-      switch (event.event) {
-        case "Staked":
-
-        break;
-
-        case "Unstaked":
-
-        break;
+    this.stakeContract.on("*", (event) => {
+      try {
+        this.eventRepository.save({
+          blockNumber: Number(event.blockNumber),
+          blockHash: String(event.blockHash),
+          data: String(event.data),
+          transactionIndex: Number(event.transactionIndex),
+          removed: Boolean(event.removed),
+          transactionHash: String(event.transactionHash),
+          logIndex: Number(event.logIndex),
+          event: String(event.event),
+          eventSignature: String(event.eventSignature),
+          address: String(event.address),
+          account: String(event.args.account),
+          amount: Number(event.args.amount),
+          eventArgumentsEncoded: String(ethers.utils.defaultAbiCoder.encode(['address','uint256'],[event.args.account, event.args.amount]))
+        });
+      } catch(err) {
+        console.error(err);
       }
     });
   }
 
-  constructor() {
+  constructor(
+    @InjectRepository(Event)
+    private readonly eventRepository: Repository<Event>,
+  ) {
     this.connect();
-    //this.sturdyWebsocketLogic();
   }
   
 

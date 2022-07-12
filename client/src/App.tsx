@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './App.css';
 import Navigation from './common/Navigation/Index';
-import { defaultWalletContext, params } from './common/Params/Index';
+import { defaultWalletContext, params, WalletContext } from './common/Params/Index';
 import Dashboard from './components/Dashboard/Index';
 import { ethers } from 'ethers';
 import { Staking__factory } from './types/factories/Staking__factory';
@@ -10,7 +10,7 @@ import { Staking } from './types/Staking';
 
 function App() {
   
-  const [wallet, setWallet] = React.useState(defaultWalletContext);
+  const [wallet, setWallet] = React.useState<WalletContext>(defaultWalletContext);
   const [provider, setProvider] = React.useState<ethers.providers.Web3Provider | null>(null);
   const [contract, setContract] = React.useState<Staking | null>(null);
 
@@ -56,7 +56,7 @@ function App() {
   return (
     <main className="App">
       <Navigation wallet={wallet} />
-      <Dashboard connection={provider} contract={contract} />
+      <Dashboard contract={contract} wallet={wallet} />
     </main>
   );
 }

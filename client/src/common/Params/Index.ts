@@ -1,5 +1,6 @@
 export const params = {
-    contract: '0x3b4B48d72872142ce2442d01D8f4D930dA9C3452'
+    contract: '0x3b4B48d72872142ce2442d01D8f4D930dA9C3452',
+    emptyAddress: '0x0000000000000000000000000000000000000000'
 };
 
 export interface Params {

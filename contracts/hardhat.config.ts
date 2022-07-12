@@ -4,6 +4,7 @@ import "tsconfig-paths/register";
 import "@typechain/hardhat"
 import "@nomiclabs/hardhat-ethers"
 import "hardhat-gas-reporter"
+import "@nomiclabs/hardhat-ethers";
 
 require("dotenv").config();
 
@@ -19,6 +20,9 @@ const config: HardhatUserConfig = {
       url: String(process.env.ETHEREUM_RINKEBY_INFURA),
       accounts: [String(process.env.PRIVATE_KEY)],
     },
+  },
+  etherscan: {
+    apiKey: '',
   },
   gasReporter: {
     currency: "EUR",
