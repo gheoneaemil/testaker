@@ -11,7 +11,6 @@ import { Staking } from './types/Staking';
 function App() {
   
   const [wallet, setWallet] = React.useState<WalletContext>(defaultWalletContext);
-  const [provider, setProvider] = React.useState<ethers.providers.Web3Provider | null>(null);
   const [contract, setContract] = React.useState<Staking | null>(null);
 
   const metamaskAuth = () => {
@@ -19,7 +18,6 @@ function App() {
         if ( window.ethereum ) {
 
             let connection: ethers.providers.Web3Provider = new ethers.providers.Web3Provider(window.ethereum, "rinkeby");
-            setProvider(connection);
 
             window.ethereum.request({ method: 'eth_requestAccounts' })
             .then((accounts: Array<string>) => {

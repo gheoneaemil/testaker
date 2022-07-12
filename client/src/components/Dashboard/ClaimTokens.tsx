@@ -33,7 +33,7 @@ export default function ClaimTokens({ contract, wallet }: Props) {
   }, [wallet,contract]);
 
   return (
-    <Card elevation={0}>
+    <Card elevation={0} sx={{ marginTop: '5rem' }}>
       <CardContent>
         <Typography gutterBottom variant="h4" component="div">
           You have {String(ethers.utils.formatEther(amount)).substring(0,8)} ETH
