@@ -8,6 +8,8 @@
     "outDir": "dist",
     "paths": { "~/*": ["src/*"] },
   },
+  "types": [ "node" ],
+  "typeRoots": [ "../node_modules/@types" ],
   "include": ["./scripts", "./test"],
   "files": ["./hardhat.config.ts"]
 }

@@ -4,6 +4,7 @@ import "tsconfig-paths/register";
 import "@typechain/hardhat"
 import "@nomiclabs/hardhat-ethers"
 import "hardhat-gas-reporter"
+import "@nomiclabs/hardhat-ethers";
 
 require("dotenv").config();
 
