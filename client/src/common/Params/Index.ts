@@ -1,4 +1,4 @@
-export const parameters = {
+export const params = {
     contract: '0x3b4B48d72872142ce2442d01D8f4D930dA9C3452'
   };
 
@@ -18,34 +18,20 @@ export interface Aseet {
   name: string;
 }
 
-export interface Network {
-  name: string;
-  rpc: number | string;
-  chainId: number | string;
-  currencySymbol: string;
-  blockExplorerUrl: string;
-}
-
-export interface WalletMetamask {
+export interface WalletContext {
+  compatible: boolean;
   account: string;
   mainToken: Aseet;
-  assets: Aseet[];
-}
-
-export interface WalletContext {
-  metamaskCompatible: boolean;
-  metamask: WalletMetamask;
+  assets: Array<Aseet>;
 }
 
 export const defaultWalletContext: WalletContext = {
-  metamaskCompatible: false,
-  metamask: {
-    account: '',
-    mainToken: {
-      symbol: '',
-      balance: 0,
-      name: ''
-    },
-    assets: []
-  }
+  compatible: false,
+  account: '',
+  mainToken: {
+    symbol: '',
+    balance: 0,
+    name: ''
+  },
+  assets: []
 };

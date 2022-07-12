@@ -3,6 +3,8 @@ import MuiGrid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
 import ClaimTokens from './ClaimTokens';
 import DepositTokens from './DepositTokens';
+import { Staking } from '../../types/Staking';
+import { ethers } from 'ethers';
 
 const Grid = styled(MuiGrid)(({ theme }) => ({
   width: '100%',
@@ -12,21 +14,23 @@ const Grid = styled(MuiGrid)(({ theme }) => ({
   },
 }));
 
+interface Props {
+  connection: ethers.providers.Web3Provider | null;
+  contract: Staking | null;
+} 
 
-function App() {
+export default function Dashboard({ connection, contract }: Props) {
   return (
     <div className="App">
       <Grid container>
         <Grid item xs>
-          {DepositTokens()}
+          <DepositTokens connection={connection} contract={contract} />
         </Grid>
         <Divider orientation="vertical" flexItem />
         <Grid item xs>
-          {ClaimTokens()}
+          <ClaimTokens connection={connection} contract={contract} />
         </Grid>
       </Grid>
     </div>
   );
 }
-
-export default App;

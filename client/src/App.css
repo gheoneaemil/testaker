@@ -9,3 +9,7 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+.MetamaskIcon {
+  border-radius: 50%;
+}

@@ -7,9 +7,14 @@
   "scripts": {
     "build": "npm run clean && npm run compile && cp -r types ../client",
     "deploy": "hardhat run scripts/deploy.ts --network ethereumRinkeby",
+    "stake": "hardhat run scripts/stake.ts",
+    "transfer": "hardhat run scripts/transfer.ts",
+    "unstake": "hardhat run scripts/unstake.ts",
+    "info": "hardhat run scripts/info.ts",
     "test": "npx hardhat test",
     "clean": "npx hardhat clean",
-    "compile": "npx hardhat compile"
+    "compile": "npx hardhat compile",
+    "lint": "solhint 'contracts/**/*.sol'"
   },
   "dependencies": {
     "dotenv": "^16.0.1",
