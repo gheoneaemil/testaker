@@ -70,7 +70,7 @@ function a11yProps(index: number) {
 
 export default function Investors({ contract }: Props) {
 
-  const [investors, setInvestors] = React.useState<Array<Investor>>([]);
+  const [investors, setInvestors] = React.useState<Array<string>>([]);
   const [value, setValue] = React.useState(0);
   const [events, setEvents] = React.useState<Array<any>>([]);
 
@@ -78,80 +78,40 @@ export default function Investors({ contract }: Props) {
     setValue(newValue);
   };
 
-  const observable = new Observable<Investor>(subscriber => {
+  const observable = new Observable(subscriber => {
     contract?.validators().then((validators: Array<string>) => {
-      console.log("Received validators");
-      //let formattedInvestors = investors;
+      subscriber.next(validators);
+      /*
       for ( let i = 0 , l = validators.length ; i < l ; ++i ) {
         contract?.accountStake(validators[i]).then((amountStaked: BigNumber) => {
-          console.log("Pushing for next");
-          subscriber.next({
-            address: validators[i],
-            amount: Number(amountStaked)
-          });
-          setInvestors([...investors, {
-            address: validators[i],
-            amount: Number(amountStaked)
-          }]);
+          subscriber.next(i);
         })
       }
+      */
       subscriber.complete();
-      //setInvestors(formattedInvestors);
     })
   });
 
-  React.useEffect(() => {
-    /*
-    function setEffectInvestors(newInvestors: Array<Investor>) {
-      setInvestors(newInvestors);
-    }
-    */
-
-    try {
-
-      observable.subscribe({
-        next(investor: Investor) {
-          console.log("Received something here");
-          console.log(investor);
-        },
-        error(err) {
-          console.error(err);
-        }
-      });
-
-      httpGet(params.apiUrl + "/events")
-      .then(response => {
-        setEvents(response[0]);
-      })
-      .catch(err => {
-        console.error(err)
-      });
-  
-        /*
-        const fetch = () => {
-          contract?.validators().then((validators: Array<string>) => {
-            let formattedValidators: Array<Investor> = [];
-            for ( let i = 0 , l = validators.length ; i < l ; ++i ) {
-              contract?.accountStake(validators[i]).then((amountStaked: BigNumber) => {
-                formattedValidators.push({
-                  address: validators[i],
-                  amount: Number(amountStaked)
-                });
-              })
-            }
-            console.log(formattedValidators);
-            setInvestors(formattedValidators);
-          });
-        }
-
-      fetch();
-    */
-
-    } catch (err) {
+  observable.subscribe({
+    next(investors) {
+      console.log("Received something here");
+      console.log(investors);
+      setInvestors(investors as Array<string>);
+    },
+    error(err) {
       console.error(err);
     }
+  });
 
-  }, [contract]);
+  React.useEffect(() => {
+    httpGet(params.apiUrl + "/events")
+    .then(response => {
+      setEvents(response[0]);
+    })
+    .catch(err => {
+      console.error(err)
+    });
+  }, []);
 
   return (
     <Card sx={{ margin: '3rem' , padding: '3rem' , borderRadius: '18px' }} elevation={0}>
@@ -179,8 +139,8 @@ export default function Investors({ contract }: Props) {
                       key={id}
                       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
-                      <TableCell align="center">{investor.address}</TableCell>
-                      <TableCell align="center">{investor.amount}</TableCell>
+                      <TableCell align="center">{investor}</TableCell>
+                      <TableCell align="center">{investor}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
