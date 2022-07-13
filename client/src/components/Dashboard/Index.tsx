@@ -69,24 +69,16 @@ export default function Dashboard({ contract, wallet }: Props) {
     setValue(newValue);
   };
 
-  const observable = new Observable(subscriber => {
+  const observable = new Observable<Array<string>>(subscriber => {
     contract?.validators().then((validators: Array<string>) => {
       subscriber.next(validators);
       subscriber.complete();
     })
   });
 
-  observable.subscribe({
-    next(investors) {
-      setInvestors(investors as Array<string>);
-    },
-    error(err) {
-      console.error(err);
-    },
-    complete() {
-      
-    }
-  });
+  observable.subscribe((observedInvestors: Array<string>) => {
+    setInvestors(observedInvestors);
+  }) 
 
   React.useEffect(() => {
     httpGet(params.apiUrl + "/events")

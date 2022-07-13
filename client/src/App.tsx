@@ -34,6 +34,8 @@ function App() {
                     ...wallet,
                     account: accounts[0]
                 });
+                const signer = connection.getSigner(accounts[0]);
+                setContract(Staking__factory.connect(params.contract,signer));
             });
         }
     } catch (err) {

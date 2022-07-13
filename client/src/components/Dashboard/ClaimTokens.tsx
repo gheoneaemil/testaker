@@ -15,7 +15,7 @@ interface Props {
 
 export default function ClaimTokens({ contract, wallet }: Props) {
 
-  const [amount, setAmount] = React.useState<number>(0);
+  const [amount, setAmount] = React.useState<string>('0');
 
   const claim = () => {
     contract?.unstake();
@@ -24,7 +24,7 @@ export default function ClaimTokens({ contract, wallet }: Props) {
   React.useEffect(() => {
     try {
         contract?.accountStake(wallet?.account || params.emptyAddress).then((amount) => {
-          setAmount(Number(amount));
+          setAmount(ethers.utils.formatEther(amount));
         })
     } catch (err) {
       console.error(err);
@@ -36,7 +36,7 @@ export default function ClaimTokens({ contract, wallet }: Props) {
     <Card elevation={0} sx={{ marginTop: '5rem' }}>
       <CardContent>
         <Typography gutterBottom variant="h4" component="div">
-          You have {String(ethers.utils.formatEther(amount)).substring(0,8)} ETH
+          You have {amount} ETH
         </Typography>
         <Typography gutterBottom variant="h6" component="div">
           Want to claim it?
